@@ -72,7 +72,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'projects', 'contact'];
+      const sections = ['home', 'about', 'projects', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const section of sections) {
@@ -96,6 +96,7 @@ function App() {
         <div className="nav-links">
           {[
             { id: 'home', icon: <Home size={18} />, label: 'Home' },
+            { id: 'about', icon: <User size={18} />, label: 'About' },
             { id: 'projects', icon: <Folder size={18} />, label: 'Projects' },
             { id: 'contact', icon: <Mail size={18} />, label: 'Contact' }
           ].map((item) => (
@@ -152,6 +153,47 @@ function App() {
                 {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
                 {copied ? 'Copied!' : 'Copy Email'}
               </button>
+            </div>
+          </FadeIn>
+        </section>
+
+        <section id="about">
+          <FadeIn>
+            <h2 style={{ textAlign: 'center' }}>About Me</h2>
+            <div className="glass-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
+              <div>
+                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Background</h3>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
+                  I’m a Computer Applications student based in Noida, India, with a strong foundation in data science and a growing focus on machine learning. I work with data to build models, uncover patterns, and solve real-world problems through logical and structured thinking.
+                </p>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
+                  My approach is simple—understand the data, extract meaningful insights, and translate them into intelligent systems that can support better decisions. Currently, I’m expanding my skills in machine learning and continuously improving through hands-on projects and consistent practice.
+                </p>
+              </div>
+
+              <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }}></div>
+
+              <div>
+                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>More About Me</h3>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
+                  I’m currently in my first year of a Bachelor of Computer Applications at MUIT, Noida. My skill set includes Python (Pandas, NumPy), SQL, data cleaning, exploratory data analysis, statistics, and data visualization using Matplotlib and Seaborn. I also have foundational experience in machine learning concepts such as regression, classification, and feature engineering.
+                </p>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
+                  I consider myself a logical thinker with a disciplined mindset, driven by curiosity and a strong work ethic. I focus on building solid fundamentals and applying them practically through projects.
+                </p>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
+                  Outside of academics, I spend time gaming, playing volleyball, listening to music, and traveling. I value consistency, discipline, and continuous self-improvement.
+                </p>
+              </div>
+
+              <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }}></div>
+
+              <div>
+                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>My Side Projects</h3>
+                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
+                  I actively work on data science and machine learning projects to strengthen my skills and apply what I learn. You can explore them in the projects section.
+                </p>
+              </div>
             </div>
           </FadeIn>
         </section>
