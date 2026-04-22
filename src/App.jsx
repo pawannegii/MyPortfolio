@@ -12,7 +12,9 @@ import {
   LayoutTemplate,
   Palette,
   CheckCircle2,
-  Copy
+  Copy,
+  Sun,
+  Moon
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
 
@@ -63,6 +65,15 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [copied, setCopied] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('hello@designer.com');
@@ -114,9 +125,19 @@ function App() {
             </a>
           ))}
         </div>
-        <a href="#contact" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-          Hire Me
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button 
+            onClick={() => setIsDark(!isDark)}
+            className="nav-link"
+            style={{ padding: '8px', borderRadius: '50%' }}
+            aria-label="Toggle Dark Mode"
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <a href="#contact" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
+            Let's Connect
+          </a>
+        </div>
       </nav>
 
       <main className="container">
@@ -147,7 +168,7 @@ function App() {
             
             <div className="hero-ctas">
               <a href="#contact" className="btn btn-primary">
-                Hire Me <ArrowRight size={18} />
+                Let's Connect <ArrowRight size={18} />
               </a>
               <button onClick={handleCopyEmail} className="btn btn-outline">
                 {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
