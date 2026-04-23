@@ -955,12 +955,42 @@ footer {
 
   #contact > div > div {
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
   }
 
-  #contact .project-card {
+  #contact .social-card {
     flex-direction: row;
     align-items: center;
+    min-height: 72px;
+    padding: 14px 16px !important;
+    gap: 14px !important;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.045);
+  }
+
+  #contact .social-card:hover {
+    transform: translateY(-2px);
+  }
+
+  #contact .social-icon {
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.42) !important;
+    border: 1px solid var(--border-color);
+  }
+
+  [data-theme="dark"] #contact .social-card {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  }
+
+  [data-theme="dark"] #contact .social-icon {
+    background: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  [data-theme="avocado"] #contact .social-icon {
+    background: rgba(241, 248, 234, 0.62) !important;
   }
 
   .cursor-follower { display: none; }
