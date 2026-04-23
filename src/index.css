@@ -317,6 +317,10 @@ p {
   gap: 8px;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .nav-link {
   display: flex;
   align-items: center;
@@ -745,13 +749,106 @@ footer {
   .navbar {
     top: 16px;
     bottom: auto;
-    width: calc(100% - 32px);
-    padding: 8px 16px;
-    border-radius: var(--border-radius-full);
+    left: 16px;
+    transform: none;
+    width: 48px;
+    max-width: calc(100% - 32px);
+    min-height: 48px;
+    padding: 6px;
+    border-radius: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
   }
 
-  .nav-link span { display: none; }
-  .nav-link { padding: 12px; }
+  .navbar.open {
+    width: 210px;
+    padding: 8px;
+    border-radius: 20px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    transition: var(--transition);
+  }
+
+  .menu-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme="dark"] .menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme="avocado"] .menu-toggle:hover {
+    background: rgba(95, 143, 58, 0.13);
+  }
+
+  .menu-toggle span {
+    width: 17px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition: var(--transition);
+  }
+
+  .navbar.open .menu-toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .navbar.open .menu-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar.open .menu-toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .navbar.open .nav-links {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 10px 12px;
+    justify-content: flex-start;
+  }
+
+  .nav-link span { display: inline; }
+
+  .navbar > div:last-child {
+    display: none !important;
+    width: 100%;
+  }
+
+  .navbar.open > div:last-child {
+    display: flex !important;
+  }
+
+  .navbar.open > div:last-child .nav-link {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    justify-content: center;
+  }
 
   section { padding: 60px 0 30px; }
   .hero-section { padding-top: 120px; padding-bottom: 20px; }

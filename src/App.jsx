@@ -70,6 +70,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('theme');
     if (['light', 'dark', 'avocado'].includes(saved)) return saved;
@@ -118,7 +119,18 @@ function App() {
         <div className="blob blob-2"></div>
         <div className="blob blob-3"></div>
       </div>
-      <nav className="navbar glass-card">
+      <nav className={`navbar glass-card ${isMobileNavOpen ? 'open' : ''}`}>
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label={isMobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileNavOpen}
+          onClick={() => setIsMobileNavOpen((isOpen) => !isOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div className="nav-links">
           {[
             { id: 'home', icon: <Home size={18} />, label: 'Home' },
@@ -133,6 +145,7 @@ function App() {
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileNavOpen(false);
               }}
             >
               {item.icon}
