@@ -311,10 +311,10 @@ function App() {
 
       <footer>
         <FadeIn>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
             <p className="copyright">© 2026 Pawan Negi</p>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', opacity: 0.8, letterSpacing: '0.02em' }}>
-              Designed with minimalism & built with React
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', opacity: 0.8, letterSpacing: '0.02em', fontStyle: 'italic' }}>
+              "Simplicity is the ultimate sophistication."
             </p>
           </div>
         </FadeIn>
