@@ -757,24 +757,33 @@ footer {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.25rem; }
 
+  .container {
+    padding: 0 18px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 32px;
+  }
+
   .navbar {
-    top: 18px;
+    top: max(14px, env(safe-area-inset-top));
     bottom: auto;
-    left: 18px;
+    left: 14px;
     transform: none;
-    width: 46px;
+    width: 44px;
     max-width: calc(100% - 32px);
-    min-height: 46px;
-    padding: 5px;
-    border-radius: 18px;
+    min-height: 44px;
+    padding: 4px;
+    border-radius: 16px;
     align-items: flex-start;
     justify-content: flex-start;
     overflow: hidden;
   }
 
   .navbar.open {
-    width: 210px;
-    padding: 8px;
+    width: min(220px, calc(100vw - 28px));
+    padding: 7px;
     border-radius: 20px;
     flex-direction: column;
     gap: 8px;
@@ -847,13 +856,13 @@ footer {
 
   .theme-control {
     position: fixed;
-    top: 18px;
-    right: 18px;
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
     z-index: 101;
-    width: 46px;
-    height: 46px;
-    padding: 5px;
-    border-radius: 18px;
+    width: 44px;
+    height: 44px;
+    padding: 4px;
+    border-radius: 16px;
     background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -877,8 +886,8 @@ footer {
     border-radius: 14px;
   }
 
-  section { padding: 60px 0 30px; }
-  .hero-section { padding-top: 132px; padding-bottom: 20px; }
+  section { padding: 54px 0 28px; }
+  .hero-section { padding-top: 116px; padding-bottom: 20px; }
 
   .avatar {
     width: 100px;
@@ -900,10 +909,33 @@ footer {
     width: 100%;
   }
 
+  .hero-description {
+    font-size: 1rem;
+    margin: 14px auto 28px;
+  }
+
+  #about .glass-card {
+    padding: 24px !important;
+    gap: 20px !important;
+  }
+
   .project-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .project-info {
+    width: 100%;
+    gap: 14px;
+  }
+
+  .project-icon {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
   }
 
   .project-arrow { align-self: flex-end; }
@@ -916,9 +948,35 @@ footer {
 
   .contact-form { padding: 24px; }
 
+  #contact > div > p {
+    font-size: 1rem !important;
+    margin-bottom: 32px !important;
+  }
+
+  #contact > div > div {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  #contact .project-card {
+    flex-direction: row;
+    align-items: center;
+  }
+
   .cursor-follower { display: none; }
 
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .skill-box {
+    min-height: 112px;
+    padding: 18px 12px;
+    gap: 12px;
+  }
+
+  .skill-box span {
+    font-size: 0.95rem;
   }
 }
