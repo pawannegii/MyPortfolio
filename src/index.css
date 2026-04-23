@@ -17,8 +17,9 @@
   --border-radius-sm: 12px;
   --border-radius-full: 9999px;
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --blob-1: #6C5CE7;
-  --blob-2: #38BDF8;
+  --blob-1: #000000;
+  --blob-2: #333333;
+  --blob-3: #666666;
 }
 
 [data-theme="dark"] {
@@ -31,8 +32,9 @@
   --border-color: #3F3F46;
   --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.15);
   --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.25);
-  --blob-1: #4C3CBA;
-  --blob-2: #0284C7;
+  --blob-1: #FFFFFF;
+  --blob-2: #CCCCCC;
+  --blob-3: #AAAAAA;
 }
 
 [data-theme="dark"] .glass-card {
@@ -113,7 +115,7 @@
   left: 50%;
   width: 40vw;
   height: 40vw;
-  background: var(--accent-gradient);
+  background: var(--blob-3);
   opacity: 0.2;
   animation-delay: -10s;
 }
