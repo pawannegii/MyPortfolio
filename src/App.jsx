@@ -253,7 +253,7 @@ function App() {
         <section id="contact">
           <FadeIn>
             <h2 style={{ textAlign: 'center' }}>Let's Connect</h2>
-            <p style={{ textAlign: 'center', marginBottom: '40px', maxWidth: '600px', margin: '0 auto' }}>
+            <p style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
               Feel free to reach out for collaborations or just a friendly chat. You can find me on these platforms:
             </p>
             
