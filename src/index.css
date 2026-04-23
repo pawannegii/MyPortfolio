@@ -321,6 +321,17 @@ p {
   display: none;
 }
 
+.theme-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  padding: 10px;
+  border-radius: 50%;
+}
+
 .nav-link {
   display: flex;
   align-items: center;
@@ -834,16 +845,31 @@ footer {
 
   .nav-link span { display: inline; }
 
-  .navbar > div:last-child {
-    display: none !important;
-    width: 100%;
+  .theme-control {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 101;
+    width: 48px;
+    height: 48px;
+    padding: 6px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow-soft);
   }
 
-  .navbar.open > div:last-child {
-    display: flex !important;
+  [data-theme="dark"] .theme-control {
+    border-color: rgba(255, 255, 255, 0.06);
   }
 
-  .navbar.open > div:last-child .nav-link {
+  [data-theme="avocado"] .theme-control {
+    border-color: rgba(91, 128, 61, 0.16);
+  }
+
+  .theme-toggle {
     width: 36px;
     height: 36px;
     padding: 8px;

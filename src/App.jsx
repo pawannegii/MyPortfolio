@@ -153,11 +153,10 @@ function App() {
             </a>
           ))}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div className="theme-control">
           <button
             onClick={cycleTheme}
-            className="nav-link"
-            style={{ padding: '10px', borderRadius: '50%' }}
+            className="nav-link theme-toggle"
             aria-label={`Switch theme, current theme is ${theme}`}
             title={`Theme: ${theme}`}
           >
