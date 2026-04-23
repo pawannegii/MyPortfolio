@@ -25,10 +25,15 @@ import {
   Code2
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
+const PythonIcon = ({ size = 28 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M12.127 0C9.37 0 7.429.563 5.923 1.545c-1.536 1.002-1.921 2.38-2.032 3.902h4.593v1.173H2.607C1.164 6.62 0 8.01 0 10.42v1.656c0 2.64 1.487 4.195 3.328 4.756v-2.18c0-1.785 1.516-3.237 3.376-3.237h3.918V7.545c0-1.638 1.428-2.97 3.19-2.97h2.895v-1.77C16.707 1.25 15.114 0 12.127 0zm-.924 1.956a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zM20.672 6.545v2.18c0 1.786-1.516 3.238-3.376 3.238H13.38v3.869c0 1.64-1.428 2.97-3.19 2.97H7.293v1.77c0 1.554 1.593 2.805 4.58 2.805 2.758 0 4.698-.562 6.204-1.544 1.536-1.003 1.921-2.38 2.032-3.903h-4.593v-1.172h5.876c1.444 0 2.608-1.39 2.608-3.8v-1.655c0-2.64-1.488-4.195-3.328-4.756zm-7.621 13.298a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/>
+  </svg>
+)
 
 const technicalSkills = [
   { name: 'C & C++', icon: <Cpu size={28} strokeWidth={1.5} /> },
-  { name: 'Python', icon: <TerminalSquare size={28} strokeWidth={1.5} /> },
+  { name: 'Python', icon: <PythonIcon size={26} /> },
   { name: 'Java', icon: <Coffee size={28} strokeWidth={1.5} /> },
   { name: 'SQL & DBs', icon: <Database size={28} strokeWidth={1.5} /> },
   { name: 'Web Dev', icon: <Globe size={28} strokeWidth={1.5} /> },
@@ -210,7 +215,7 @@ function App() {
         <section id="skills">
           <FadeIn>
             <h2 className="section-title">Technical Skills</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', maxWidth: '800px', margin: '0 auto' }}>
+            <div className="skills-grid">
               {technicalSkills.map((skill, idx) => (
                 <FadeIn key={skill.name} delay={idx * 0.05}>
                   <div className="glass-card skill-box">
