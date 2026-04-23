@@ -232,8 +232,8 @@ function App() {
 
         <section id="contact">
           <FadeIn>
-            <h2 className="section-title">Let's Connect</h2>
-            <p style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
+            <h2 className="section-title" style={{ marginBottom: '16px' }}>Let's Connect</h2>
+            <p style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto 48px auto', fontSize: '1.15rem', color: 'var(--text-secondary)' }}>
               Feel free to reach out for collaborations or just a friendly chat. You can find me on these platforms:
             </p>
 
