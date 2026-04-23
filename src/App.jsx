@@ -11,8 +11,7 @@ import {
   PenTool,
   LayoutTemplate,
   Palette,
-  CheckCircle2,
-  Copy,
+  Download,
   Sun,
   Moon,
   Code,
@@ -65,7 +64,7 @@ const FadeIn = ({ children, delay = 0 }) => (
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const [copied, setCopied] = useState(false);
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
@@ -77,11 +76,7 @@ function App() {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('hello@designer.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -172,10 +167,10 @@ function App() {
               <a href="#contact" className="btn btn-primary">
                 Let's Connect <ArrowRight size={18} />
               </a>
-              <button onClick={handleCopyEmail} className="btn btn-outline">
-                {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
-                {copied ? 'Copied!' : 'Copy Email'}
-              </button>
+              <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <Download size={18} />
+                Resume
+              </a>
             </div>
           </FadeIn>
         </section>
