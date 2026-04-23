@@ -758,15 +758,15 @@ footer {
   h2 { font-size: 1.25rem; }
 
   .navbar {
-    top: 16px;
+    top: 18px;
     bottom: auto;
-    left: 16px;
+    left: 18px;
     transform: none;
-    width: 48px;
+    width: 46px;
     max-width: calc(100% - 32px);
-    min-height: 48px;
-    padding: 6px;
-    border-radius: 24px;
+    min-height: 46px;
+    padding: 5px;
+    border-radius: 18px;
     align-items: flex-start;
     justify-content: flex-start;
     overflow: hidden;
@@ -789,7 +789,7 @@ footer {
     justify-content: center;
     flex-direction: column;
     gap: 4px;
-    border-radius: 50%;
+    border-radius: 14px;
     color: var(--text-primary);
     transition: var(--transition);
   }
@@ -847,13 +847,13 @@ footer {
 
   .theme-control {
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: 18px;
+    right: 18px;
     z-index: 101;
-    width: 48px;
-    height: 48px;
-    padding: 6px;
-    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    padding: 5px;
+    border-radius: 18px;
     background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -874,10 +874,11 @@ footer {
     height: 36px;
     padding: 8px;
     justify-content: center;
+    border-radius: 14px;
   }
 
   section { padding: 60px 0 30px; }
-  .hero-section { padding-top: 120px; padding-bottom: 20px; }
+  .hero-section { padding-top: 132px; padding-bottom: 20px; }
 
   .avatar {
     width: 100px;
