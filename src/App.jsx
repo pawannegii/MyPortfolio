@@ -315,6 +315,7 @@ function App() {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
+              className="project-modal"
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
@@ -324,7 +325,6 @@ function App() {
                 width: '100%',
                 maxWidth: '600px',
                 borderRadius: 'var(--border-radius)',
-                padding: '40px',
                 position: 'relative',
                 boxShadow: 'var(--shadow-hover)'
               }}
