@@ -743,8 +743,8 @@ footer {
   h2 { font-size: 1.25rem; }
 
   .navbar {
-    bottom: 24px;
-    top: auto;
+    top: 16px;
+    bottom: auto;
     width: calc(100% - 32px);
     padding: 8px 16px;
     border-radius: var(--border-radius-full);
@@ -754,7 +754,7 @@ footer {
   .nav-link { padding: 12px; }
 
   section { padding: 60px 0 30px; }
-  .hero-section { padding-top: 80px; padding-bottom: 20px; }
+  .hero-section { padding-top: 120px; padding-bottom: 20px; }
 
   .avatar {
     width: 100px;
