@@ -100,6 +100,11 @@ function App() {
 
   return (
     <>
+      <div className="background-effects">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
       <nav className="navbar glass-card">
         <div className="nav-links">
           {[
@@ -167,10 +172,10 @@ function App() {
               <a href="#contact" className="btn btn-primary">
                 Let's Connect <ArrowRight size={18} />
               </a>
-              <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+              <button className="btn btn-outline">
                 <Download size={18} />
                 Resume
-              </a>
+              </button>
             </div>
           </FadeIn>
         </section>
