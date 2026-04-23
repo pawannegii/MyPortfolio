@@ -15,6 +15,7 @@ import {
   Download,
   Sun,
   Moon,
+  Leaf,
   Code,
   TerminalSquare,
   Cpu,
@@ -69,15 +70,24 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isDark, setIsDark] = useState(() => {
+  const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (['light', 'dark', 'avocado'].includes(saved)) return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const cycleTheme = () => {
+    setTheme((currentTheme) => {
+      if (currentTheme === 'light') return 'dark';
+      if (currentTheme === 'dark') return 'avocado';
+      return 'light';
+    });
+  };
 
 
 
@@ -132,12 +142,13 @@ function App() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <button
-            onClick={() => setIsDark(!isDark)}
+            onClick={cycleTheme}
             className="nav-link"
             style={{ padding: '10px', borderRadius: '50%' }}
-            aria-label="Toggle Dark Mode"
+            aria-label={`Switch theme, current theme is ${theme}`}
+            title={`Theme: ${theme}`}
           >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            {theme === 'dark' ? <Sun size={20} /> : theme === 'avocado' ? <Leaf size={20} /> : <Moon size={20} />}
           </button>
         </div>
       </nav>
@@ -146,14 +157,13 @@ function App() {
         <section id="home" className="hero-section">
           <FadeIn>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
-              <motion.img
-                src={avatarImg}
-                alt="Pawan Negi Avatar"
-                className="avatar"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                style={{ margin: '0 0 16px 0', display: 'block' }}
-              />
+              <div className="avatar-jelly">
+                <img
+                  src={avatarImg}
+                  alt="Pawan Negi Avatar"
+                  className="avatar"
+                />
+              </div>
               <div className="status-badge" style={{ margin: 0 }}>
                 <div className="status-dot"></div>
                 Available for work
@@ -271,7 +281,7 @@ function App() {
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.1rem', marginBottom: '4px', color: 'var(--text-primary)' }}>GitHub</h3>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>@pawannegi</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>@pawannegii</span>
                 </div>
               </a>
 
