@@ -60,9 +60,6 @@
   border-color: #2D2D33;
 }
 
-[data-theme="dark"] .social-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
 
 * {
   box-sizing: border-box;
@@ -433,32 +430,6 @@ footer {
   margin-top: 80px;
 }
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.social-link {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  transition: var(--transition);
-}
-
-.social-link:hover {
-  color: var(--text-primary);
-  background: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-}
 
 .copyright {
   font-size: 0.9rem;
