@@ -311,8 +311,12 @@ function App() {
 
       <footer>
         <FadeIn>
-
-          <p className="copyright">© {new Date().getFullYear()} Pawan Negi. All rights reserved.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+            <p className="copyright">© 2026 Pawan Negi</p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', opacity: 0.8, letterSpacing: '0.02em' }}>
+              Designed with minimalism & built with React
+            </p>
+          </div>
         </FadeIn>
       </footer>
 
