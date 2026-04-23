@@ -15,9 +15,27 @@ import {
   Sun,
   Moon,
   Code,
-  TerminalSquare
+  TerminalSquare,
+  Cpu,
+  Coffee,
+  Database,
+  Globe,
+  BrainCircuit,
+  BarChart3,
+  Code2
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
+
+const technicalSkills = [
+  { name: 'C & C++', icon: <Cpu size={28} strokeWidth={1.5} /> },
+  { name: 'Python', icon: <TerminalSquare size={28} strokeWidth={1.5} /> },
+  { name: 'Java', icon: <Coffee size={28} strokeWidth={1.5} /> },
+  { name: 'SQL & DBs', icon: <Database size={28} strokeWidth={1.5} /> },
+  { name: 'Web Dev', icon: <Globe size={28} strokeWidth={1.5} /> },
+  { name: 'Machine Learning', icon: <BrainCircuit size={28} strokeWidth={1.5} /> },
+  { name: 'Data Visuals', icon: <BarChart3 size={28} strokeWidth={1.5} /> },
+  { name: 'Data Analysis', icon: <Code2 size={28} strokeWidth={1.5} /> },
+];
 
 const projects = [
   {
@@ -177,26 +195,32 @@ function App() {
               <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }}></div>
 
               <div>
-                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>More About Me</h3>
+                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Beyond Code</h3>
                 <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
-                  I’m currently in my first year of a Bachelor of Computer Applications at MUIT, Noida. My skill set includes Python (Pandas, NumPy), SQL, data cleaning, exploratory data analysis, statistics, and data visualization using Matplotlib and Seaborn. I also have foundational experience in machine learning concepts such as regression, classification, and feature engineering.
-                </p>
-                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
                   I consider myself a logical thinker with a disciplined mindset, driven by curiosity and a strong work ethic. I focus on building solid fundamentals and applying them practically through projects.
                 </p>
                 <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
                   Outside of academics, I spend time gaming, playing volleyball, listening to music, and traveling. I value consistency, discipline, and continuous self-improvement.
                 </p>
               </div>
+            </div>
+          </FadeIn>
+        </section>
 
-              <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }}></div>
-
-              <div>
-                <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>My Side Projects</h3>
-                <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
-                  I actively work on data science and machine learning projects to strengthen my skills and apply what I learn. You can explore them in the projects section.
-                </p>
-              </div>
+        <section id="skills">
+          <FadeIn>
+            <h2 className="section-title">Technical Skills</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', maxWidth: '800px', margin: '0 auto' }}>
+              {technicalSkills.map((skill, idx) => (
+                <FadeIn key={skill.name} delay={idx * 0.05}>
+                  <div className="glass-card skill-box">
+                    <div className="skill-icon">
+                      {skill.icon}
+                    </div>
+                    <span>{skill.name}</span>
+                  </div>
+                </FadeIn>
+              ))}
             </div>
           </FadeIn>
         </section>
