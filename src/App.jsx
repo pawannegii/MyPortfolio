@@ -22,10 +22,10 @@ import avatarImg from './assets/avatar.png';
 const projects = [
   {
     id: 1,
-    title: 'Ofira',
+    title: 'OFIRA',
     category: 'Frontend Development',
     icon: <LayoutTemplate size={24} strokeWidth={1.5} />,
-    description: 'A premium, modern web application featuring an Apple-inspired minimal UI and a refreshing mint green aesthetic.',
+    description: "Connect with locals for urgent micro-tasks. Apna locality batao — baaki hum dekhenge. Let's make everyday life a little easier, together.",
     client: 'Personal Project',
     year: '2026',
     link: 'https://ofiraofficial.vercel.app/'
