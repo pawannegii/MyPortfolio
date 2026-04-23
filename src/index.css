@@ -777,17 +777,15 @@ footer {
     padding: 4px;
     border-radius: 16px;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow: hidden;
-    gap: 0;
   }
 
   .navbar.open {
     width: min(220px, calc(100vw - 28px));
     padding: 7px;
     border-radius: 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 8px;
   }
 
@@ -840,7 +838,6 @@ footer {
   .nav-links {
     display: none;
     width: 100%;
-    order: 3;
     flex-direction: column;
     gap: 4px;
   }
@@ -858,12 +855,27 @@ footer {
   .nav-link span { display: inline; }
 
   .theme-control {
-    display: none;
-    margin-left: auto;
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
+    z-index: 101;
+    width: 44px;
+    height: 44px;
+    padding: 4px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow-soft);
   }
 
-  .navbar.open .theme-control {
-    display: flex;
+  [data-theme="dark"] .theme-control {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  [data-theme="avocado"] .theme-control {
+    border-color: rgba(91, 128, 61, 0.16);
   }
 
   .theme-toggle {
