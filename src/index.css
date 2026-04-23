@@ -17,9 +17,9 @@
   --border-radius-sm: 12px;
   --border-radius-full: 9999px;
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --blob-1: #000000;
-  --blob-2: #333333;
-  --blob-3: #666666;
+  --blob-1: #D4D4D8;
+  --blob-2: #A1A1AA;
+  --blob-3: #E4E4E7;
 }
 
 [data-theme="dark"] {
