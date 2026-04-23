@@ -22,30 +22,13 @@ import avatarImg from './assets/avatar.png';
 const projects = [
   {
     id: 1,
-    title: 'Fintech Dashboard',
-    category: 'Product Design',
-    icon: <Layers size={24} strokeWidth={1.5} />,
-    description: 'A comprehensive financial dashboard for managing personal wealth and investments.',
-    client: 'Acme Corp',
-    year: '2025'
-  },
-  {
-    id: 2,
-    title: 'E-commerce App',
-    category: 'UX/UI Design',
+    title: 'Ofira',
+    category: 'Frontend Development',
     icon: <LayoutTemplate size={24} strokeWidth={1.5} />,
-    description: 'A mobile-first e-commerce shopping experience with a focus on quick checkout.',
-    client: 'StyleStore',
-    year: '2024'
-  },
-  {
-    id: 3,
-    title: 'Brand Identity',
-    category: 'Branding',
-    icon: <Palette size={24} strokeWidth={1.5} />,
-    description: 'Complete visual identity redesign for a sustainable tech startup.',
-    client: 'EcoTech',
-    year: '2024'
+    description: 'A premium, modern web application featuring an Apple-inspired minimal UI and a refreshing mint green aesthetic.',
+    client: 'Personal Project',
+    year: '2026',
+    link: 'https://ofiraofficial.vercel.app/'
   }
 ];
 
@@ -412,9 +395,9 @@ function App() {
                 [Project Preview Image Stack]
               </div>
               
-              <button className="btn btn-primary" style={{ width: '100%' }}>
+              <a href={selectedProject.link || '#'} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%' }}>
                 Visit Website <ExternalLink size={18} />
-              </button>
+              </a>
             </motion.div>
           </motion.div>
         )}
