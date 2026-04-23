@@ -162,7 +162,7 @@ function App() {
 
         <section id="about">
           <FadeIn>
-            <h2 style={{ textAlign: 'center' }}>About Me</h2>
+            <h2 className="section-title">About Me</h2>
             <div className="glass-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
               <div>
                 <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Background</h3>
@@ -203,7 +203,7 @@ function App() {
 
         <section id="projects">
           <FadeIn>
-            <h2 style={{ textAlign: 'center' }}>Selected Projects</h2>
+            <h2 className="section-title">Selected Projects</h2>
             <div className="project-list">
               {projects.map((project, idx) => (
                 <FadeIn key={project.id} delay={idx * 0.1}>
@@ -232,7 +232,7 @@ function App() {
 
         <section id="contact">
           <FadeIn>
-            <h2 style={{ textAlign: 'center' }}>Let's Connect</h2>
+            <h2 className="section-title">Let's Connect</h2>
             <p style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
               Feel free to reach out for collaborations or just a friendly chat. You can find me on these platforms:
             </p>
