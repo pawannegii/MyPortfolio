@@ -274,6 +274,8 @@ p {
   font-weight: 500;
   font-size: 0.95rem;
   transition: var(--transition);
+  min-width: 170px;
+  border: 1px solid transparent;
 }
 
 .btn:active {
