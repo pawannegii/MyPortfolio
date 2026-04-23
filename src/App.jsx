@@ -22,7 +22,8 @@ import {
   Globe,
   BrainCircuit,
   BarChart3,
-  Code2
+  Code2,
+  Network
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
 const PythonIcon = ({ size = 28 }) => (
@@ -31,15 +32,21 @@ const PythonIcon = ({ size = 28 }) => (
   </svg>
 )
 
+const CppIcon = ({ size = 28 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M22.251 10.366v3.268h-2.148v2.148h-1.558v-2.148h-2.147v-1.558h2.147V9.929h1.558v2.148h2.148v-1.711zM14.07 10.366v3.268h-2.148v2.148h-1.558v-2.148H8.217v-1.558h2.147V9.929h1.558v2.148h2.148v-1.711zM7.56 18.067C4.195 18.067 1.458 15.342 1.458 12S4.195 5.933 7.56 5.933c2.47 0 4.595 1.474 5.378 3.565h-1.637c-.66-1.185-1.92-1.996-3.385-1.996-2.164 0-3.924 1.77-3.924 3.953 0 2.183 1.76 3.954 3.924 3.954 1.488 0 2.766-.838 3.407-2.052h1.62c-.792 2.128-2.936 3.64-5.443 3.64l.06-.06z"/>
+  </svg>
+)
+
 const technicalSkills = [
-  { name: 'C & C++', icon: <Cpu size={28} strokeWidth={1.5} /> },
+  { name: 'C & C++', icon: <CppIcon size={26} /> },
   { name: 'Python', icon: <PythonIcon size={26} /> },
   { name: 'Java', icon: <Coffee size={28} strokeWidth={1.5} /> },
   { name: 'SQL & DBs', icon: <Database size={28} strokeWidth={1.5} /> },
   { name: 'Web Dev', icon: <Globe size={28} strokeWidth={1.5} /> },
   { name: 'Machine Learning', icon: <BrainCircuit size={28} strokeWidth={1.5} /> },
-  { name: 'Data Visuals', icon: <BarChart3 size={28} strokeWidth={1.5} /> },
-  { name: 'Data Analysis', icon: <Code2 size={28} strokeWidth={1.5} /> },
+  { name: 'Data Analysis & Visuals', icon: <BarChart3 size={28} strokeWidth={1.5} /> },
+  { name: 'Data Structures & Algorithms', icon: <Network size={28} strokeWidth={1.5} /> },
 ];
 
 const projects = [
