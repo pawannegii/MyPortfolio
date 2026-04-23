@@ -119,9 +119,6 @@ function App() {
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <a href="#contact" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-            Let's Connect
-          </a>
         </div>
       </nav>
 
