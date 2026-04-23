@@ -111,13 +111,13 @@ function App() {
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <button
+          <button 
             onClick={() => setIsDark(!isDark)}
             className="nav-link"
-            style={{ padding: '8px', borderRadius: '50%' }}
+            style={{ padding: '10px', borderRadius: '50%' }}
             aria-label="Toggle Dark Mode"
           >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </div>
       </nav>
