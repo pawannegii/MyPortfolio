@@ -347,7 +347,8 @@ function App() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  color: 'var(--text-primary)'
                 }}
               >
                 ✕
