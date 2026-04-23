@@ -26,21 +26,10 @@ import {
   Network
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
-const PythonIcon = ({ size = 28 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none">
-    <path d="M12.127 0C9.37 0 7.429.563 5.923 1.545c-1.536 1.002-1.921 2.38-2.032 3.902h4.593v1.173H2.607C1.164 6.62 0 8.01 0 10.42v1.656c0 2.64 1.487 4.195 3.328 4.756v-2.18c0-1.785 1.516-3.237 3.376-3.237h3.918V7.545c0-1.638 1.428-2.97 3.19-2.97h2.895v-1.77C16.707 1.25 15.114 0 12.127 0zm-.924 1.956a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zM20.672 6.545v2.18c0 1.786-1.516 3.238-3.376 3.238H13.38v3.869c0 1.64-1.428 2.97-3.19 2.97H7.293v1.77c0 1.554 1.593 2.805 4.58 2.805 2.758 0 4.698-.562 6.204-1.544 1.536-1.003 1.921-2.38 2.032-3.903h-4.593v-1.172h5.876c1.444 0 2.608-1.39 2.608-3.8v-1.655c0-2.64-1.488-4.195-3.328-4.756zm-7.621 13.298a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z" />
-  </svg>
-)
-
-const CppIcon = ({ size = 28 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none">
-    <path d="M22.251 10.366v3.268h-2.148v2.148h-1.558v-2.148h-2.147v-1.558h2.147V9.929h1.558v2.148h2.148v-1.711zM14.07 10.366v3.268h-2.148v2.148h-1.558v-2.148H8.217v-1.558h2.147V9.929h1.558v2.148h2.148v-1.711zM7.56 18.067C4.195 18.067 1.458 15.342 1.458 12S4.195 5.933 7.56 5.933c2.47 0 4.595 1.474 5.378 3.565h-1.637c-.66-1.185-1.92-1.996-3.385-1.996-2.164 0-3.924 1.77-3.924 3.953 0 2.183 1.76 3.954 3.924 3.954 1.488 0 2.766-.838 3.407-2.052h1.62c-.792 2.128-2.936 3.64-5.443 3.64l.06-.06z"/>
-  </svg>
-)
 
 const technicalSkills = [
-  { name: 'C & C++', icon: <CppIcon size={26} /> },
-  { name: 'Python', icon: <PythonIcon size={26} /> },
+  { name: 'C & C++', icon: <Cpu size={28} strokeWidth={1.5} /> },
+  { name: 'Python', icon: <TerminalSquare size={28} strokeWidth={1.5} /> },
   { name: 'Java', icon: <Coffee size={28} strokeWidth={1.5} /> },
   { name: 'SQL & DBs', icon: <Database size={28} strokeWidth={1.5} /> },
   { name: 'Web Dev', icon: <Globe size={28} strokeWidth={1.5} /> },
