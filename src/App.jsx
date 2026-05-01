@@ -91,10 +91,22 @@ function App() {
 
 
 
+  const [isNavHidden, setIsNavHidden] = useState(false);
+  const lastScrollY = React.useRef(0);
+
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsNavHidden(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsNavHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
+
       const sections = ['home', 'about', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const scrollPosition = currentScrollY + window.innerHeight / 2;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -107,7 +119,7 @@ function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -118,7 +130,7 @@ function App() {
         <div className="blob blob-2"></div>
         <div className="blob blob-3"></div>
       </div>
-      <nav className={`navbar glass-card ${isMobileNavOpen ? 'open' : ''}`}>
+      <nav className={`navbar glass-card ${isNavHidden ? 'nav-hidden' : ''} ${isMobileNavOpen ? 'open' : ''}`}>
         <button
           type="button"
           className="menu-toggle"
