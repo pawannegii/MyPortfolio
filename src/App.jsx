@@ -91,7 +91,7 @@ function App() {
   };
 
 
-
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isNavHidden, setIsNavHidden] = useState(false);
   const lastScrollY = React.useRef(0);
 
@@ -164,6 +164,15 @@ function App() {
               <span>{item.label}</span>
             </a>
           ))}
+          <button
+            onClick={() => setIsContactModalOpen(true)}
+            className="nav-link contact-btn"
+            aria-label="Open contact form"
+            title="Contact Me"
+          >
+            <Mail size={18} />
+            <span>Contact</span>
+          </button>
         </div>
         <div className="theme-control">
           <button
@@ -460,6 +469,102 @@ function App() {
               <a href={selectedProject.link || '#'} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%' }}>
                 Visit Website <ExternalLink size={18} />
               </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Contact Form Modal */}
+      <AnimatePresence>
+        {isContactModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(28, 28, 30, 0.4)',
+              backdropFilter: 'blur(8px)',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '24px'
+            }}
+            onClick={() => setIsContactModalOpen(false)}
+          >
+            <motion.div
+              className="project-modal"
+              initial={{ y: 50, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              style={{
+                background: 'var(--card-bg)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid var(--border-color)',
+                width: '100%',
+                maxWidth: '500px',
+                borderRadius: 'var(--border-radius)',
+                position: 'relative',
+                boxShadow: 'var(--shadow-hover)',
+                padding: '32px'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsContactModalOpen(false)}
+                style={{
+                  position: 'absolute',
+                  top: '24px',
+                  right: '24px',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'var(--card-bg)',
+                  border: '1px solid var(--border-color)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: 'var(--text-primary)'
+                }}
+              >
+                ✕
+              </button>
+
+              <h2 style={{ marginBottom: '8px' }}>Contact Me</h2>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                Have a question or want to work together? Leave a message!
+              </p>
+
+              <form action="https://api.web3forms.com/submit" method="POST" className="contact-form-glass">
+                <input type="hidden" name="access_key" value="dd3066f2-7cb7-499e-8654-70dd58b69555" />
+                
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" id="name" name="name" required placeholder="Your Name" />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">Message</label>
+                  <textarea id="message" name="message" required placeholder="How can I help you?" rows="4"></textarea>
+                </div>
+                
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
+                  Send Message
+                </button>
+              </form>
             </motion.div>
           </motion.div>
         )}
