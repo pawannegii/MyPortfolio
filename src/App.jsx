@@ -36,9 +36,9 @@ const technicalSkills = [
   { name: 'Java', icon: <Coffee size={28} strokeWidth={1.5} /> },
   { name: 'SQL & DBs', icon: <Database size={28} strokeWidth={1.5} /> },
   { name: 'Web Dev', icon: <Globe size={28} strokeWidth={1.5} /> },
-  { name: 'Machine Learning', icon: <BrainCircuit size={28} strokeWidth={1.5} /> },
-  { name: 'Data Analysis & Visuals', icon: <BarChart3 size={28} strokeWidth={1.5} /> },
-  { name: 'Data Structures & Algorithms', icon: <Network size={28} strokeWidth={1.5} /> },
+  { name: 'Machine Learning', icon: <BrainCircuit size={28} strokeWidth={1.5} />, learning: true },
+  { name: 'Data Analysis & Visuals', icon: <BarChart3 size={28} strokeWidth={1.5} />, learning: true },
+  { name: 'Data Structures & Algorithms', icon: <Network size={28} strokeWidth={1.5} />, learning: true },
 ];
 
 const projects = [
@@ -263,6 +263,7 @@ function App() {
                       {skill.icon}
                     </div>
                     <span>{skill.name}</span>
+                    {skill.learning && <span className="learning-badge">⟡ Learning</span>}
                   </div>
                 </FadeIn>
               ))}
