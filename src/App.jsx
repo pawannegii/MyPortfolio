@@ -73,7 +73,7 @@ function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('theme');
-    if (['light', 'dark', 'avocado'].includes(saved)) return saved;
+    if (['light', 'dark'].includes(saved)) return saved;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
@@ -85,7 +85,6 @@ function App() {
   const cycleTheme = () => {
     setTheme((currentTheme) => {
       if (currentTheme === 'light') return 'dark';
-      if (currentTheme === 'dark') return 'avocado';
       return 'light';
     });
   };
@@ -160,7 +159,7 @@ function App() {
             aria-label={`Switch theme, current theme is ${theme}`}
             title={`Theme: ${theme}`}
           >
-            {theme === 'dark' ? <Sun size={20} /> : theme === 'avocado' ? <Leaf size={20} /> : <Moon size={20} />}
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </div>
       </nav>
