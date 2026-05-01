@@ -727,126 +727,80 @@ footer {
   }
 
   .navbar {
-    top: max(14px, env(safe-area-inset-top));
-    bottom: auto;
-    left: 14px;
-    transform: none;
-    width: 44px;
-    max-width: calc(100% - 32px);
-    min-height: 44px;
-    padding: 4px;
-    border-radius: 16px;
-    align-items: flex-start;
+    top: auto;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 380px;
+    min-height: 64px;
+    padding: 8px 16px;
+    border-radius: 32px;
+    align-items: center;
     justify-content: space-between;
-    overflow: hidden;
-    gap: 0;
-  }
-
-  .navbar.open {
-    width: min(220px, calc(100vw - 28px));
-    padding: 7px;
-    border-radius: 20px;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.92);
-    border-color: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
-    backdrop-filter: blur(18px) saturate(1.15);
-    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 
-  [data-theme="dark"] .navbar.open {
-    background: rgba(30, 30, 34, 0.94);
-    border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  [data-theme="dark"] .navbar {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
-
-
 
   .menu-toggle {
-    display: inline-flex;
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-    border-radius: 14px;
-    color: var(--text-primary);
-    transition: var(--transition);
-  }
-
-  .menu-toggle:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  [data-theme="dark"] .menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-
-
-  .menu-toggle span {
-    width: 17px;
-    height: 2px;
-    border-radius: 999px;
-    background: currentColor;
-    transition: var(--transition);
-  }
-
-  .navbar.open .menu-toggle span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-  }
-
-  .navbar.open .menu-toggle span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .navbar.open .menu-toggle span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
+    display: none;
   }
 
   .nav-links {
-    display: none;
-    width: 100%;
-    order: 3;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .navbar.open .nav-links {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    order: 1;
   }
 
   .nav-link {
-    width: 100%;
-    padding: 10px 12px;
-    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
   }
 
-  .nav-link span { display: inline; }
+  .nav-link span {
+    display: none;
+  }
 
   .theme-control {
-    display: none;
-    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+    margin-left: 8px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(161, 161, 170, 0.3);
   }
 
-  .navbar.open .theme-control {
-    display: flex;
+  [data-theme="dark"] .theme-control {
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .theme-toggle {
-    width: 36px;
-    height: 36px;
-    padding: 8px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    border-radius: 14px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
   }
 
-  section { padding: 54px 0 28px; }
-  .hero-section { padding-top: 116px; padding-bottom: 20px; }
+  section { padding: 32px 0 16px; }
+  .hero-section { padding-top: 24px; padding-bottom: 16px; }
+  footer { padding-bottom: 110px; margin-top: 32px; }
 
   .avatar {
     width: 100px;
@@ -920,6 +874,7 @@ footer {
   #contact .social-card {
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start !important;
     min-height: 72px;
     padding: 14px 16px !important;
     gap: 14px !important;
