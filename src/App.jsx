@@ -25,7 +25,8 @@ import {
   BrainCircuit,
   BarChart3,
   Code2,
-  Network
+  Network,
+  Link2
 } from 'lucide-react';
 import avatarImg from './assets/avatar.png';
 
@@ -147,7 +148,7 @@ function App() {
             { id: 'home', icon: <Home size={18} />, label: 'Home' },
             { id: 'about', icon: <User size={18} />, label: 'About' },
             { id: 'projects', icon: <Folder size={18} />, label: 'Projects' },
-            { id: 'contact', icon: <Mail size={18} />, label: 'Contact' }
+            { id: 'contact', icon: <Link2 size={18} />, label: 'Connect' }
           ].map((item) => (
             <a
               key={item.id}
@@ -180,7 +181,7 @@ function App() {
         <section id="home" className="hero-section">
           <FadeIn>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
-              <div className="avatar-jelly">
+              <div style={{ marginBottom: '16px' }}>
                 <img
                   src={avatarImg}
                   alt="Pawan Negi Avatar"
