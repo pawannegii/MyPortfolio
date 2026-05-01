@@ -92,8 +92,21 @@ function App() {
 
 
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [showWelcomeToast, setShowWelcomeToast] = useState(false);
   const [isNavHidden, setIsNavHidden] = useState(false);
   const lastScrollY = React.useRef(0);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    const alreadyShown = sessionStorage.getItem('welcomeShown');
+    if (isMobile && !alreadyShown) {
+      const timer = setTimeout(() => {
+        setShowWelcomeToast(true);
+        sessionStorage.setItem('welcomeShown', 'true');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -566,6 +579,43 @@ function App() {
                   Send Message
                 </button>
               </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Welcome Toast */}
+      <AnimatePresence>
+        {showWelcomeToast && (
+          <motion.div
+            className="welcome-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowWelcomeToast(false)}
+          >
+            <motion.div
+              className="welcome-card"
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>👋</div>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                Hey, welcome!
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7, maxWidth: '300px', margin: '0 auto 20px' }}>
+                Thanks for stopping by! This website is optimized for laptops and desktops, so for the best experience, feel free to visit from a PC or computer whenever you get a chance.
+              </p>
+              <button
+                onClick={() => setShowWelcomeToast(false)}
+                className="btn btn-primary"
+                style={{ width: '100%', maxWidth: '220px' }}
+              >
+                Got it
+              </button>
             </motion.div>
           </motion.div>
         )}
