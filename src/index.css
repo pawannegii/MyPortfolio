@@ -18,9 +18,9 @@
   --border-radius-sm: 12px;
   --border-radius-full: 9999px;
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --blob-1: #D4D4D8;
-  --blob-2: #A1A1AA;
-  --blob-3: #E4E4E7;
+  --blob-1: #000000;
+  --blob-2: #4B4B4B;
+  --blob-3: #808080;
 }
 
 [data-theme="dark"] {
@@ -105,7 +105,7 @@
 .blob {
   position: absolute;
   filter: blur(100px);
-  opacity: 0.4;
+  opacity: 0.25;
   border-radius: 50%;
   animation: float 20s infinite ease-in-out alternate;
   will-change: transform;
@@ -139,7 +139,6 @@
   width: 40vw;
   height: 40vw;
   background: var(--blob-3);
-  opacity: 0.2;
   animation-delay: -10s;
 }
 
