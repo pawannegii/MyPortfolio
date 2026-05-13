@@ -15,6 +15,7 @@ import {
   Download,
   Sun,
   Moon,
+  Monitor,
   Leaf,
   Code,
   TerminalSquare,
@@ -54,7 +55,45 @@ const projects = [
   }
 ];
 
+const getStoredTheme = () => {
+  try {
+    const saved = window.localStorage.getItem('theme');
+    return ['light', 'dark'].includes(saved) ? saved : null;
+  } catch {
+    return null;
+  }
+};
 
+const setStoredTheme = (theme) => {
+  try {
+    window.localStorage.setItem('theme', theme);
+  } catch {
+    // Storage can be unavailable in private or restricted browser contexts.
+  }
+};
+
+const getPreferredTheme = () => {
+  if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+};
+
+const getWelcomeShown = () => {
+  try {
+    return window.sessionStorage.getItem('welcomeShown');
+  } catch {
+    return null;
+  }
+};
+
+const setWelcomeShown = () => {
+  try {
+    window.sessionStorage.setItem('welcomeShown', 'true');
+  } catch {
+    // Storage can be unavailable in private or restricted browser contexts.
+  }
+};
 
 const FadeIn = ({ children, delay = 0 }) => (
   <motion.div
@@ -72,15 +111,11 @@ function App() {
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    if (['light', 'dark'].includes(saved)) return saved;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  });
+  const [theme, setTheme] = useState(() => getStoredTheme() || getPreferredTheme());
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    setStoredTheme(theme);
   }, [theme]);
 
   const cycleTheme = () => {
@@ -92,17 +127,21 @@ function App() {
 
 
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactStatus, setContactStatus] = useState('idle');
   const [showWelcomeToast, setShowWelcomeToast] = useState(false);
   const [isNavHidden, setIsNavHidden] = useState(false);
   const lastScrollY = React.useRef(0);
+  const projectModalRef = React.useRef(null);
+  const contactModalRef = React.useRef(null);
+  const lastFocusedElement = React.useRef(null);
 
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
-    const alreadyShown = sessionStorage.getItem('welcomeShown');
+    const alreadyShown = getWelcomeShown();
     if (isMobile && !alreadyShown) {
       const timer = setTimeout(() => {
         setShowWelcomeToast(true);
-        sessionStorage.setItem('welcomeShown', 'true');
+        setWelcomeShown();
       }, 3000);
       return () => clearTimeout(timer);
     }
@@ -136,6 +175,100 @@ function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const activeModalRef = selectedProject ? projectModalRef : isContactModalOpen ? contactModalRef : null;
+    const modal = activeModalRef?.current;
+
+    if (!modal) return undefined;
+
+    lastFocusedElement.current = document.activeElement;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled]):not([type="hidden"]):not([tabindex="-1"])',
+      'textarea:not([disabled]):not([tabindex="-1"])',
+      'select:not([disabled]):not([tabindex="-1"])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(', ');
+
+    const focusFrame = requestAnimationFrame(() => {
+      const firstFocusable = modal.querySelector(focusableSelector);
+      (firstFocusable || modal).focus();
+    });
+
+    const closeModal = () => {
+      if (selectedProject) setSelectedProject(null);
+      if (isContactModalOpen) setIsContactModalOpen(false);
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = Array.from(modal.querySelectorAll(focusableSelector));
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        modal.focus();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.removeEventListener('keydown', handleKeyDown);
+      lastFocusedElement.current?.focus?.();
+    };
+  }, [selectedProject, isContactModalOpen]);
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setContactStatus('sending');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      let result = {};
+
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+
+      if (!response.ok || result.success === false) {
+        throw new Error('Contact form submission failed');
+      }
+
+      form.reset();
+      setContactStatus('success');
+    } catch {
+      setContactStatus('error');
+    }
+  };
 
   return (
     <>
@@ -178,7 +311,10 @@ function App() {
             </a>
           ))}
           <button
-            onClick={() => setIsContactModalOpen(true)}
+            onClick={() => {
+              setContactStatus('idle');
+              setIsContactModalOpen(true);
+            }}
             className="nav-link contact-btn"
             aria-label="Open contact form"
             title="Contact Me"
@@ -217,11 +353,11 @@ function App() {
             </div>
 
             <h1 style={{ fontWeight: 700 }}>Pawan Negi</h1>
-            <h2 style={{ fontWeight: 700 }}>Data Scientist</h2>
+            <h2 style={{ fontWeight: 700 }}>Aspiring Data Scientist</h2>
 
             <p className="hero-description">
-              I analyze data to extract meaningful insights and build data-driven solutions.
-              Focused on applying statistical methods and machine learning to solve real-world problems, while balancing analytical rigor with practical impact.
+              I am building my foundation in data science by working with data, exploring patterns, and turning analysis into clear, practical insights.
+              I am especially interested in statistics, machine learning, and using data to understand real problems.
             </p>
 
             <div className="hero-ctas">
@@ -243,10 +379,10 @@ function App() {
               <div>
                 <h3 style={{ fontSize: '1.125rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Background</h3>
                 <p style={{ color: 'var(--text-primary)', lineHeight: 1.7 }}>
-                  I’m a Computer Applications student based in Noida, India, with a strong foundation in data science and a growing focus on machine learning. I work with data to build models, uncover patterns, and solve real-world problems through logical and structured thinking.
+                  I am a Computer Applications student based in Noida, India, developing my skills in data science, Python, SQL, and machine learning. I enjoy working through datasets step by step, asking useful questions, and learning how analysis can support better decisions.
                 </p>
                 <p style={{ color: 'var(--text-primary)', lineHeight: 1.7, marginTop: '12px' }}>
-                  My approach is simple—understand the data, extract meaningful insights, and translate them into intelligent systems that can support better decisions. Currently, I’m expanding my skills in machine learning and continuously improving through hands-on projects and consistent practice.
+                  Right now, I am focused on strengthening my fundamentals through hands-on projects, practice, and consistent learning. My goal is to grow into a data science role where I can solve practical problems with curiosity, discipline, and clear thinking.
                 </p>
               </div>
 
@@ -276,7 +412,9 @@ function App() {
                       {skill.icon}
                     </div>
                     <span>{skill.name}</span>
-                    {skill.learning && <span className="learning-badge">⟡ Learning</span>}
+                    {skill.learning && (
+                      <span className={skill.name === 'Machine Learning' ? 'learning-badge learning-badge--machine' : 'learning-badge'}>⟡ Learning</span>
+                    )}
                   </div>
                 </FadeIn>
               ))}
@@ -290,9 +428,12 @@ function App() {
             <div className="project-list">
               {projects.map((project, idx) => (
                 <FadeIn key={project.id} delay={idx * 0.1}>
-                  <div
+                  <button
+                    type="button"
                     className="project-card glass-card"
                     onClick={() => setSelectedProject(project)}
+                    aria-label={`Open ${project.title} project details`}
+                    aria-haspopup="dialog"
                   >
                     <div className="project-info">
                       <div className="project-icon">
@@ -304,7 +445,7 @@ function App() {
                       </div>
                     </div>
                     <ArrowRight className="project-arrow" size={24} />
-                  </div>
+                  </button>
                 </FadeIn>
               ))}
             </div>
@@ -402,7 +543,12 @@ function App() {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
+              ref={projectModalRef}
               className="project-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-dialog-title"
+              tabIndex={-1}
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
@@ -418,6 +564,8 @@ function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                type="button"
+                aria-label="Close project details"
                 onClick={() => setSelectedProject(null)}
                 style={{
                   position: 'absolute',
@@ -453,7 +601,7 @@ function App() {
                   {selectedProject.icon}
                 </div>
                 <div>
-                  <h2 style={{ marginBottom: '4px' }}>{selectedProject.title}</h2>
+                  <h2 id="project-dialog-title" style={{ marginBottom: '4px' }}>{selectedProject.title}</h2>
                   <p>{selectedProject.category} • {selectedProject.year}</p>
                 </div>
               </div>
@@ -463,21 +611,6 @@ function App() {
                   {selectedProject.description}
                 </p>
                 <p><strong>Client:</strong> {selectedProject.client}</p>
-              </div>
-
-              <div style={{
-                width: '100%',
-                height: '240px',
-                background: 'var(--card-bg)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--border-radius-sm)',
-                marginBottom: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--text-secondary)'
-              }}>
-                [Project Preview Image Stack]
               </div>
 
               <a href={selectedProject.link || '#'} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%' }}>
@@ -512,7 +645,12 @@ function App() {
             onClick={() => setIsContactModalOpen(false)}
           >
             <motion.div
+              ref={contactModalRef}
               className="project-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="contact-dialog-title"
+              tabIndex={-1}
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
@@ -532,6 +670,8 @@ function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                type="button"
+                aria-label="Close contact form"
                 onClick={() => setIsContactModalOpen(false)}
                 style={{
                   position: 'absolute',
@@ -552,13 +692,14 @@ function App() {
                 ✕
               </button>
 
-              <h2 style={{ marginBottom: '8px' }}>Contact Me</h2>
+              <h2 id="contact-dialog-title" style={{ marginBottom: '8px' }}>Contact Me</h2>
               <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
                 Have a question or want to work together? Leave a message!
               </p>
 
-              <form action="https://api.web3forms.com/submit" method="POST" className="contact-form-glass">
+              <form onSubmit={handleContactSubmit} className="contact-form-glass">
                 <input type="hidden" name="access_key" value="dd3066f2-7cb7-499e-8654-70dd58b69555" />
+                <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
                 
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
@@ -574,9 +715,20 @@ function App() {
                   <label htmlFor="message">Message</label>
                   <textarea id="message" name="message" required placeholder="How can I help you?" rows="4"></textarea>
                 </div>
+
+                {contactStatus !== 'idle' && (
+                  <p
+                    role={contactStatus === 'error' ? 'alert' : 'status'}
+                    style={{ color: contactStatus === 'error' ? '#EF4444' : 'var(--text-secondary)', fontSize: '0.9rem' }}
+                  >
+                    {contactStatus === 'sending' && 'Sending your message...'}
+                    {contactStatus === 'success' && 'Message sent. Thanks for reaching out!'}
+                    {contactStatus === 'error' && 'Something went wrong. Please try again.'}
+                  </p>
+                )}
                 
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
-                  Send Message
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }} disabled={contactStatus === 'sending'}>
+                  {contactStatus === 'sending' ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </motion.div>
@@ -602,7 +754,9 @@ function App() {
               transition={{ type: 'spring', stiffness: 300, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>👋</div>
+              <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--text-primary)', marginBottom: '8px' }}>
+                <Monitor size={40} strokeWidth={1.5} />
+              </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
                 Hey, welcome!
               </h3>
