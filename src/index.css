@@ -876,7 +876,7 @@ footer {
     align-items: flex-start;
     gap: 16px;
     padding: 20px;
-    width: auto;
+    width: 100%;
     max-width: 100%;
   }
 
@@ -1052,7 +1052,7 @@ footer {
 }
 
 .welcome-card {
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-color);
@@ -1065,5 +1065,6 @@ footer {
 }
 
 [data-theme="dark"] .welcome-card {
+  background: rgba(43, 43, 48, 0.96);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
 }
