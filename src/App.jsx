@@ -8,15 +8,11 @@ import {
   Mail,
   ArrowRight,
   ExternalLink,
-  Layers,
-  PenTool,
   LayoutTemplate,
-  Palette,
   Download,
   Sun,
   Moon,
   Monitor,
-  Leaf,
   Code,
   TerminalSquare,
   Cpu,
@@ -25,7 +21,6 @@ import {
   Globe,
   BrainCircuit,
   BarChart3,
-  Code2,
   Network,
   Link2
 } from 'lucide-react';
@@ -110,7 +105,6 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [theme, setTheme] = useState(() => getStoredTheme() || getPreferredTheme());
 
   useEffect(() => {
@@ -125,7 +119,6 @@ function App() {
     });
   };
 
-
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState('idle');
   const [showWelcomeToast, setShowWelcomeToast] = useState(false);
@@ -135,17 +128,31 @@ function App() {
   const contactModalRef = React.useRef(null);
   const lastFocusedElement = React.useRef(null);
 
+  // Prevent background scroll when any modal is open
+  useEffect(() => {
+    const isAnyModalOpen = Boolean(selectedProject || isContactModalOpen || showWelcomeToast);
+    if (isAnyModalOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [selectedProject, isContactModalOpen, showWelcomeToast]);
+
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
     const alreadyShown = getWelcomeShown();
     if (isMobile && !alreadyShown) {
       const timer = setTimeout(() => {
-        setShowWelcomeToast(true);
-        setWelcomeShown();
+        if (!selectedProject && !isContactModalOpen) {
+          setShowWelcomeToast(true);
+          setWelcomeShown();
+        }
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [selectedProject, isContactModalOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -158,7 +165,7 @@ function App() {
       }
       lastScrollY.current = currentScrollY;
 
-      const sections = ['home', 'about', 'projects', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       const scrollPosition = currentScrollY + window.innerHeight / 2;
 
       for (const section of sections) {
@@ -277,22 +284,12 @@ function App() {
         <div className="blob blob-2"></div>
         <div className="blob blob-3"></div>
       </div>
-      <nav className={`navbar glass-card ${isNavHidden ? 'nav-hidden' : ''} ${isMobileNavOpen ? 'open' : ''}`}>
-        <button
-          type="button"
-          className="menu-toggle"
-          aria-label={isMobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={isMobileNavOpen}
-          onClick={() => setIsMobileNavOpen((isOpen) => !isOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+      <nav className={`navbar glass-card ${isNavHidden ? 'nav-hidden' : ''}`}>
         <div className="nav-links">
           {[
             { id: 'home', icon: <Home size={18} />, label: 'Home' },
             { id: 'about', icon: <User size={18} />, label: 'About' },
+            { id: 'skills', icon: <Cpu size={18} />, label: 'Skills' },
             { id: 'projects', icon: <Folder size={18} />, label: 'Projects' },
             { id: 'contact', icon: <Link2 size={18} />, label: 'Connect' }
           ].map((item) => (
@@ -303,7 +300,6 @@ function App() {
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                setIsMobileNavOpen(false);
               }}
             >
               {item.icon}
@@ -364,10 +360,17 @@ function App() {
               <a href="#contact" className="btn btn-primary">
                 Let's Connect <ArrowRight size={18} />
               </a>
-              <button className="btn btn-outline">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+                aria-label="View Pawan Negi's resume in a new tab"
+                title="View Resume (PDF)"
+              >
                 <Download size={18} />
                 Resume
-              </button>
+              </a>
             </div>
           </FadeIn>
         </section>
@@ -413,7 +416,7 @@ function App() {
                     </div>
                     <span>{skill.name}</span>
                     {skill.learning && (
-                      <span className={skill.name === 'Machine Learning' ? 'learning-badge learning-badge--machine' : 'learning-badge'}>⟡ Learning</span>
+                      <span className="learning-badge">⟡ Learning</span>
                     )}
                   </div>
                 </FadeIn>
@@ -613,9 +616,26 @@ function App() {
                 <p><strong>Client:</strong> {selectedProject.client}</p>
               </div>
 
-              <a href={selectedProject.link || '#'} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%' }}>
-                Visit Website <ExternalLink size={18} />
-              </a>
+              {selectedProject.link && selectedProject.link !== '#' ? (
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  style={{ width: '100%' }}
+                >
+                  Visit Website <ExternalLink size={18} />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  style={{ width: '100%', opacity: 0.75, cursor: 'default' }}
+                  disabled
+                >
+                  Project in Progress / Private Repo
+                </button>
+              )}
             </motion.div>
           </motion.div>
         )}
@@ -698,7 +718,11 @@ function App() {
               </p>
 
               <form onSubmit={handleContactSubmit} className="contact-form-glass">
-                <input type="hidden" name="access_key" value="dd3066f2-7cb7-499e-8654-70dd58b69555" />
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "dd3066f2-7cb7-499e-8654-70dd58b69555"}
+                />
                 <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
                 
                 <div className="form-group">
@@ -748,6 +772,9 @@ function App() {
           >
             <motion.div
               className="welcome-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="welcome-dialog-title"
               initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -757,7 +784,7 @@ function App() {
               <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--text-primary)', marginBottom: '8px' }}>
                 <Monitor size={40} strokeWidth={1.5} />
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
+              <h3 id="welcome-dialog-title" style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
                 Hey, welcome!
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7, maxWidth: '300px', margin: '0 auto 20px' }}>
