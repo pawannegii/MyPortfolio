@@ -371,7 +371,7 @@ const academicSpec = [
     period: '2025 — 2028',
     title: 'Bachelor of Computer Applications (BCA) — 2nd Year',
     institution: 'Maharishi University of Information Technology (Noida, India)',
-    detail: 'Specialization in Data Science. Cumulative grade: 8.6 CGPA.'
+    detail: 'Cumulative grade(1st Year): 8.6 CGPA.'
   },
   {
     period: '2024 — 2025',
@@ -809,7 +809,7 @@ export default function App() {
                 </p>
 
                 <p className="about-text">
-                  Right now, I am focused on strengthening my fundamentals through hands-on projects, practice, and consistent learning. My goal is to grow into a data science role where I can solve practical problems with curiosity, discipline, and clear thinking.
+                  Right now, I am focused on strengthening my fundamentals through hands-on projects, practice, and consistent learning. My goal is to grow into a Machine Learning Engineer role where I can solve practical problems with curiosity, discipline, and clear thinking.
                 </p>
 
                 <p className="about-text">
@@ -867,7 +867,7 @@ export default function App() {
                 <h2 className="section-title">Let's build together.</h2>
               </div>
               <p className="section-lead">
-                Available for internships, full-time junior data science positions, and collaborative research initiatives.
+                Available for Data Science/Machine Learning internships, full-time positions, and collaborative research initiatives.
               </p>
             </div>
 
