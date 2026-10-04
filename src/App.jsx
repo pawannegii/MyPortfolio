@@ -1074,7 +1074,6 @@ export default function App() {
               <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
                 Maharishi University of Information Technology<br />
                 Noida / Delhi NCR, India<br />
-                BCA (Data Science)
               </p>
               <a
                 href="mailto:pawannegi2243@gmail.com"
