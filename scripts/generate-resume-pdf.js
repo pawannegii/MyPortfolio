@@ -125,7 +125,7 @@ async function generateResume() {
   page.drawText(ed1Date, { x: width - margin - fontRegular.widthOfTextAtSize(ed1Date, 10), y, size: 10, font: fontRegular, color: primaryColor });
   y -= 12;
 
-  page.drawText("Bachelor of Computer Applications (BCA) - CGPA: 8.6 (1st Year)", { x: margin, y, size: 9.5, font: fontItalic, color: primaryColor });
+  page.drawText("Bachelor of Computer Applications (BCA) — 2nd Year (CGPA: 8.6)", { x: margin, y, size: 9.5, font: fontItalic, color: primaryColor });
   const ed1Loc = "Noida";
   page.drawText(ed1Loc, { x: width - margin - fontItalic.widthOfTextAtSize(ed1Loc, 9.5), y, size: 9.5, font: fontItalic, color: primaryColor });
   y -= 14;
