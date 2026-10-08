@@ -62,7 +62,7 @@ const projectsData = [
     client: 'Independent Project',
     year: '2026',
     technologies: ['React.js', 'Vite', 'HTML5', 'Modern CSS', 'Vercel'],
-    link: 'https://ofiraofficial.vercel.app/',
+    link: 'https://myofira.vercel.app/',
     github: 'https://github.com/pawannegii',
     highlights: [
       'Engineered localized micro-task discovery with responsive modular components.',
